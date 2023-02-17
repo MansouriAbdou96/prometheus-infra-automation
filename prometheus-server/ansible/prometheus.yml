@@ -1,0 +1,11 @@
+---
+
+- name: Configure prometheus node exporter 
+  hosts: all
+  user: ubuntu
+  become: true
+  become_method: sudo
+  become_user: root
+  roles:
+    - config-prometheus
+    - alert-manager
