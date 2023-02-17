@@ -9,7 +9,6 @@ This project provides infrastructure automation for setting up a Prometheus serv
 * Installing
 * Running the Automation
 * Built With
-* Contributing
 * Authors
 * License
 
@@ -44,17 +43,47 @@ To customize the deployment for your environment, you'll need to make some chang
 ### Usage 
 
 1. Clone the repository
-2. Navigate to the app-server/terraform directory and run the following commands:
 
+2. To create the app-server, follow these steps:
+
+Navigate to the app-server/terraform directory.
+
+```bash
+terraform init 
+terraform validate 
+terraform apply 
+```
+
+3. Once the EC2 instance is created, you can configure it using Ansible also add your pem file so you can be able to connect to ec2 instance:
+
+```bash
+ansible-playbook -i inventory node-exporter.yml --private-key=[key-pair].pem
+```
+
+4. Modify the prometheus.yml file to include the public DNS of the app-server as a target.
+
+5. To create the prometheus-server, follow these steps:
+
+Navigate to the prometheus-server/terraform directory.
+
+```bash
+terraform init 
+terraform validate 
+terraform apply 
+```
+
+6. Once the EC2 instance is created, you can configure it using Ansible also add your pem file so you can be able to connect to ec2 instance:
+
+```bash
+ansible-playbook -i inventory prometheus.yml --private-key=[key-pair].pem
+```
+
+7. Once the app-server is configured, the metrics can be accessed on port `9100`. The `prometheus-server` can be accessed at `http://<prometheus-server-ip>:9090/`.
 
 ## Built With
 
 * `Terraform` - Infrastructure as Code tool
 * `Ansible` - Automation tool
-
-## Contributing
-
-Please read `CONTRIBUTING.md` for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Authors
 
