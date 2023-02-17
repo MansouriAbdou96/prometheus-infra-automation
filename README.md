@@ -31,6 +31,21 @@ To use this infrastructure automation, you must have the following software inst
 
 ## Running the Automation 
 
+### Configuration
+
+To customize the deployment for your environment, you'll need to make some changes to the Terraform and Ansible code. In particular:
+
+* In the `app-server/terraform/main.tf` file, you'll need to update the region and ami variables to match your preferred region and Amazon Machine Image `AMI`.
+* In the `prometheus-server/terraform/main.tf` file, you'll need to update the region and ami variables to match your preferred region and Amazon Machine Image `AMI`.
+* In the `pometheus-server/ansible/roles/alertmanager/alertmanager.yml` file, update the email address for alert notifications.
+* In the `prometheus-server/ansible/roles/config-prometheus/prometheus.yml` file, update the target app-server by adding the public DNS of the app-server instance.
+* In both the `app-server/ansible/inventory.txt` and `prometheus/ansible/inventory.txt` you need to add the Public Ip of each server to the inventory file.
+
+### Usage 
+
+1. Clone the repository
+2. Navigate to the app-server/terraform directory and run the following commands:
+
 
 ## Built With
 
